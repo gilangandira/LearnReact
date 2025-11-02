@@ -1,25 +1,23 @@
-export function ProductCard() {
-    const product = {
-        imageSrc : "images/iphone.png",
-        title : "iPhone 16 Pro",
-        specification : ["A17 Pro chip with 6-core GPU",
-            "3x or 5x Telephoto camera",
-            "Up to 29 hours video playback"
-        ],
-        price : 99999,
-        size : "128px",
-    }
+export function ProductCard({
+  product,  
+  onClick,
+  ...restProps    
+    
+    
+}) {
 
-    function getProductTitle(){
+  
+  function getProductTitle(){
         return product.title
     }
 
-    function getCustomFunctionVar(customs){
-       return customs 
-    }
+    // function getCustomFunctionVar(customs){
+    //    return customs 
+    // }
 
     return (
      <article style={{
+        width : product.width,
         border: '1px solid white',
         borderRadius: '8px',
         padding: '16px',
@@ -29,20 +27,22 @@ export function ProductCard() {
       <img
         src={product.imageSrc}
         alt={product.title}
-        width={getCustomFunctionVar(product.size)}
-        height={getCustomFunctionVar(product.size)}
+        width={128}
+        height={128}
+        {...restProps}
       />
       <p>Specification:</p>
       <ul style={{
         listStyle: "none",
         padding: 0
       }}>
-        <li>{product.specification[0]}
-        </li>
-        <li>{product.specification[1]}</li>
-        <li>{product.specification[2]}</li>
+        {product.specification.map((spec, index) => (
+        <li key={index}>{spec}</li>
+        ))}
+       
+     
       </ul>
-      <button>Buy (From ${product.price})</button>
+      <button onClick={() => onClick(product)} >Buy (From ${product.price})</button>
     </article>
     );
 }
